@@ -12,8 +12,8 @@ app.get('/', (req, res) => {
     let message = {
       response_type: 'in_channel',
       text: `<${url}>`,
-      unfurl_media: true
-    }
+      unfurl_links: true
+    };
     res.json(message);
   })
   .catch((err) => {

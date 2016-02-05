@@ -21,7 +21,8 @@ class Gist {
       let parsedParams = {
         user: splitParams[0],
         repo: splitParams[1],
-        path: splitParams[2]
+        path: splitParams[2],
+        ref: splitParams[3]
       };
       this.getContentsAndPostGist(parsedParams).then((url) => {
         resolve(url);
@@ -36,17 +37,20 @@ class Gist {
     let promise = new Promise((resolve, reject) => {
       this.github.repos.getContent({
         headers: {
-          Accept: 'application/vnd.github.v3.raw+json'
+          Accept: 'application/vnd.github.v3.full'
         },
         user: params.user,
         repo: params.repo,
-        path: params.path
+        path: params.path,
+        ref: params.ref ? params.ref : 'master'
       }, (err, res) => {
         if(err) return reject(err);
 
+        let content = new Buffer(res.content, 'base64');
+
         let file = {};
-        file[params.path] = {
-          content: res
+        file[res.name] = {
+          content: content.toString()
         };
 
         this.github.gists.create({
@@ -54,7 +58,8 @@ class Gist {
           files: file
         }, (err, res) => {
           if(err) return reject(err);
-          resolve(res.html_url);
+          let url = `https://gist.github.com/${res.owner.login}/${res.id}`
+          resolve(url);
         });
       });
     });
