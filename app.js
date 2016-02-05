@@ -15,6 +15,9 @@ app.get('/', (req, res) => {
       unfurl_media: true
     }
     res.json(message);
+  })
+  .catch((err) => {
+    res.sendStatus(err.code);
   });
 });
 

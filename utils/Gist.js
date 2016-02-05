@@ -25,6 +25,9 @@ class Gist {
       };
       this.getContentsAndPostGist(parsedParams).then((url) => {
         resolve(url);
+      })
+      .catch((err) => {
+        reject(err);
       });
     });
     return promise;
