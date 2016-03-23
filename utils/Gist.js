@@ -4,15 +4,13 @@ const GitHub = require('github');
 
 class Gist {
   constructor(opts) {
-    this.opts = opts;
-
     this.github = new GitHub({
       version: '3.0.0',
     });
     this.github.authenticate({
       type: 'basic',
-      username: this.opts.username,
-      password: this.opts.password
+      username: opts.username,
+      password: opts.password
     });
   }
   init(params) {
@@ -22,7 +20,7 @@ class Gist {
         user: splitParams[0],
         repo: splitParams[1],
         path: splitParams[2],
-        ref: splitParams[3]
+        ref : splitParams[3]
       };
       this.getContentsAndPostGist(parsedParams).then((url) => {
         resolve(url);
@@ -42,7 +40,7 @@ class Gist {
         user: params.user,
         repo: params.repo,
         path: params.path,
-        ref: params.ref ? params.ref : 'master'
+        ref : params.ref ? params.ref : 'master'
       }, (err, res) => {
         if(err) return reject(err);
 
@@ -58,7 +56,7 @@ class Gist {
           files: file
         }, (err, res) => {
           if(err) return reject(err);
-          let url = `https://gist.github.com/${res.owner.login}/${res.id}`
+          let url = `https://gist.github.com/${res.owner.login}/${res.id}`;
           resolve(url);
         });
       });
