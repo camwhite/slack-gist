@@ -9,7 +9,8 @@ Add a `config.json` file containing your unique token provided by Slack
 ```json
 {
   "username": "<your-github-username>",
-  "password": "<your-github-password>"
+  "password": "<your-github-password>",
+  "token": "<your-slack-token>"
 }
 ```
 

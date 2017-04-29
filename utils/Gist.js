@@ -3,14 +3,14 @@
 const GitHub = require('github');
 
 class Gist {
-  constructor(opts) {
+  constructor(username, password) {
     this.github = new GitHub({
       version: '3.0.0',
     });
     this.github.authenticate({
       type: 'basic',
-      username: opts.username,
-      password: opts.password
+      username: username,
+      password: password
     });
   }
   init(params) {
