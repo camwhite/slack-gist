@@ -21,4 +21,4 @@ app.get('/', (req, res) => {
   });
 });
 
-app.listen(1337);
+app.listen(1337, ()=> console.log(`Express server listening 1337`));
